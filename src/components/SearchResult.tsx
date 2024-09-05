@@ -32,12 +32,14 @@ const SearchResult = () => {
       {pokemon.evolutions &&
         pokemon.evolutions.map((evolution: Pokemon) => (
           <div className="py-6 w-full flex flex-col items-center justify-center">
-            <EvoCard pokemon={evolution} />
+            <EvoCard key={evolution.id} pokemon={evolution} />
             <AttackTable
+              key={evolution.id}
               pokemonAtk={evolution.attacks.fast}
               attackType="Fast"
             />
             <AttackTable
+              key={evolution.id}
               pokemonAtk={evolution.attacks.special}
               attackType="Special"
             />
