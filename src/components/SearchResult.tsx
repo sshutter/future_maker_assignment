@@ -16,8 +16,10 @@ const SearchResult = () => {
 
   const { loading, error, data } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { name: pokemonName },
+    skip: !pokemonName,
   });
 
+  if (!pokemonName) return <></>;
   if (loading) return <p>Loading...</p>;
   if (!data?.pokemon) return <p>Not found</p>;
 
