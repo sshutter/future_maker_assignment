@@ -1,7 +1,7 @@
 "use client";
 
 import { Tilt } from "react-tilt";
-import { Pokemon, PokemonAttackInterface } from "@/interfaces/PokemonInterface";
+import { Pokemon } from "@/interfaces/PokemonInterface";
 import Image from "next/image";
 
 export default function PokemonCard({ pokemon }: { pokemon: Pokemon }) {

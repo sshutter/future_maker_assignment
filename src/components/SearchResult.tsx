@@ -4,25 +4,25 @@ import PokemonCard from "./PokemonCard"; // Assuming this is your component
 import { Pokemon } from "@/interfaces/PokemonInterface";
 import { GET_POKEMON_BY_NAME } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import AttackTable from "./AttackTable";
-import EvoCard from "./EvoCardt";
+import { Suspense } from "react";
+import EvoCardSection from "./EvoCard";
+import { LinearProgress } from "@mui/material";
 
 const SearchResult = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
   const pokemonName = searchParams.get("query");
 
-  const { loading, error, data } = useQuery(GET_POKEMON_BY_NAME, {
+  const { data } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { name: pokemonName },
+    skip: !pokemonName,
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (!pokemonName) return <></>;
   if (!data?.pokemon) return <p>Not found</p>;
 
   const pokemon = data.pokemon;
-  console.log(pokemon);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -35,7 +35,7 @@ const SearchResult = () => {
             className="py-6 w-full flex flex-col items-center justify-center"
             key={evolution.id}
           >
-            <EvoCard pokemon={evolution} />
+            <EvoCardSection pokemon={evolution} />
             <AttackTable
               pokemonAtk={evolution.attacks.fast}
               attackType="Fast"
@@ -50,4 +50,10 @@ const SearchResult = () => {
   );
 };
 
-export default SearchResult;
+export default function SearchResultSection() {
+  return (
+    <Suspense fallback={<LinearProgress />}>
+      <SearchResult />
+    </Suspense>
+  );
+}

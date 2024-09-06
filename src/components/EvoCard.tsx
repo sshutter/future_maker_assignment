@@ -3,9 +3,11 @@
 import { Pokemon, PokemonAttackInterface } from "@/interfaces/PokemonInterface";
 import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 import { Tilt } from "react-tilt";
+import { LinearProgress } from "@mui/material";
 
-export default function EvoCard({ pokemon }: { pokemon: Pokemon }) {
+const EvoCard = ({ pokemon }: { pokemon: Pokemon }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -106,5 +108,13 @@ export default function EvoCard({ pokemon }: { pokemon: Pokemon }) {
         </div>
       </Tilt>
     </div>
+  );
+};
+
+export default function EvoCardSection({ pokemon }: { pokemon: Pokemon }) {
+  return (
+    <Suspense fallback={<LinearProgress />}>
+      <EvoCard pokemon={pokemon} />
+    </Suspense>
   );
 }
