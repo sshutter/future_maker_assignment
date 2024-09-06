@@ -19,8 +19,8 @@ export default function AttackTable({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-          {pokemonAtk.map((attack) => (
-            <tr>
+          {pokemonAtk.map((attack, index) => (
+            <tr key={index}>
               <td>{attack.name}</td>
               <td>{attack.type}</td>
               <td>{attack.damage}</td>

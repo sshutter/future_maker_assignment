@@ -31,15 +31,16 @@ const SearchResult = () => {
       <AttackTable pokemonAtk={pokemon.attacks.special} attackType="Special" />
       {pokemon.evolutions &&
         pokemon.evolutions.map((evolution: Pokemon) => (
-          <div className="py-6 w-full flex flex-col items-center justify-center">
-            <EvoCard key={evolution.id} pokemon={evolution} />
+          <div
+            className="py-6 w-full flex flex-col items-center justify-center"
+            key={evolution.id}
+          >
+            <EvoCard pokemon={evolution} />
             <AttackTable
-              key={evolution.id}
               pokemonAtk={evolution.attacks.fast}
               attackType="Fast"
             />
             <AttackTable
-              key={evolution.id}
               pokemonAtk={evolution.attacks.special}
               attackType="Special"
             />
